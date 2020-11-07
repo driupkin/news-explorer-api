@@ -1,0 +1,20 @@
+{
+  "name": "diplom",
+  "version": "1.0.0",
+  "description": "API for nesexplorer frontend project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/driupkin/news-explorer-api.git"
+  },
+  "author": "stas borisov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/driupkin/news-explorer-api/issues"
+  },
+  "homepage": "https://github.com/driupkin/news-explorer-api#readme"
+}
