@@ -7,11 +7,11 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const { JWT_SECRET, NODE_ENV } = process.env;
 const SALT_ROUNDS = 10;
-
+// GET /users/me
 const getUser = (req, res, next) => {
-  User.find()
-    .then((users) => {
-      res.status(200).send(users);
+  User.findOne({ _id: req.user })
+    .then((user) => {
+      res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

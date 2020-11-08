@@ -32,9 +32,13 @@ const deleteArticle = (req, res, next) => {
       }
       Article.findByIdAndRemove(req.params.articleId)
         .then(() => res.status(200).send({ message: 'Статья удалена.' }));
-      return next(); // ?
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new BadRequestError('Некорректный id.'));
+      }
+      return next(err);
+    });
 };
 
 module.exports = { getArticles, createArticle, deleteArticle };

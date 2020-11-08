@@ -10,6 +10,7 @@ const users = require('./routes/users');
 const articles = require('./routes/articles');
 const { signin, signup } = require('./controllers/users');
 const NotFoundError = require('./errors/NotFoundError');
+const auth = require('./middlewares/auth');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -33,6 +34,8 @@ app.get('/crash-test', () => {
 
 app.post('/signin', signin);
 app.post('/signup', signup);
+
+app.use(auth);
 
 app.use('/', users);
 app.use('/', articles);
