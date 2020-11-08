@@ -11,6 +11,7 @@ const articles = require('./routes/articles');
 const { signin, signup } = require('./controllers/users');
 const NotFoundError = require('./errors/NotFoundError');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -25,6 +26,8 @@ mongoose.connect('mongodb://localhost:27017/newsexpdb',
     useUnifiedTopology: true,
     useFindAndModify: false,
   });
+
+app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -41,6 +44,8 @@ app.use('/', users);
 app.use('/', articles);
 
 app.all('*', (req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден.')));
+
+app.use(errorLogger);
 
 app.use(errors());
 
