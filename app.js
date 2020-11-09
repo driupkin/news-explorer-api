@@ -6,21 +6,17 @@ const { errors } = require('celebrate');
 
 const cors = require('cors');
 
-const users = require('./routes/users');
-const articles = require('./routes/articles');
-const { signin, signup } = require('./controllers/users');
-const NotFoundError = require('./errors/NotFoundError');
-const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const router = require('./routes/index');
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, BASE_URL } = process.env;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://localhost:27017/newsexpdb',
+mongoose.connect(BASE_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -29,21 +25,7 @@ mongoose.connect('mongodb://localhost:27017/newsexpdb',
 
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
-app.post('/signin', signin);
-app.post('/signup', signup);
-
-app.use(auth);
-
-app.use('/', users);
-app.use('/', articles);
-
-app.all('*', (req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден.')));
+app.use('/', router);
 
 app.use(errorLogger);
 
