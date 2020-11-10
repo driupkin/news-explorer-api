@@ -27,12 +27,23 @@ const validationCreateUser = celebrate({
 const validationCreateArticle = celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
+    title: Joi.string().required(),
+    text: Joi.string().required(),
+    date: Joi.string().required(),
+    source: Joi.string().required(),
     link: Joi.string().custom((value, helpers) => {
       if (validator.isURL(value)) {
         return value;
       }
       return helpers.message('неправильно введен URL!');
     }),
+    image: Joi.string().custom((value, helpers) => {
+      if (validator.isURL(value)) {
+        return value;
+      }
+      return helpers.message('неправильно введен URL!');
+    }),
+    owner: Joi.object(),
   }).unknown(true),
 });
 
