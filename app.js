@@ -11,13 +11,13 @@ const { customErrors } = require('./errors/customErrors');
 const router = require('./routes/index');
 
 const app = express();
-const { PORT = 3000, BASE_URL } = process.env;
+const { PORT = 3000, MONGO_URI } = process.env;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(BASE_URL,
+mongoose.connect(MONGO_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
