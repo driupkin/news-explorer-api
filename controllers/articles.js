@@ -5,7 +5,7 @@ const ForbiddenError = require('../errors/ForbiddenError');
 
 // GET /articles
 const getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id }).populate('owner')
     .then((cards) => res.status(200).send(cards))
     .catch(next);
 };

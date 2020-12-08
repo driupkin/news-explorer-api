@@ -40,6 +40,7 @@ const articleSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Types.ObjectId,
+    ref: 'user',
     required: true,
     select: false,
   },
