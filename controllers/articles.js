@@ -12,10 +12,10 @@ const getArticles = (req, res, next) => {
 // POST /articles
 const createArticle = (req, res, next) => {
   const {
-    keyword, title, text, date, source, link, image,
+    keyWord, title, description, publishedAt, source, url, urlToImage,
   } = req.body;
   Article.create({
-    keyword, title, text, date, source, link, image, owner: req.user._id,
+    keyWord, title, description, publishedAt, source, url, urlToImage, owner: req.user._id,
   })
     .then((cards) => res.status(201).send(cards))
     .catch((err) => {

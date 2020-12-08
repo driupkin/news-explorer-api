@@ -2,7 +2,7 @@ const validator = require('validator');
 const mongoose = require('mongoose');
 
 const articleSchema = new mongoose.Schema({
-  keyword: {
+  keyWord: {
     type: String,
     required: true,
   },
@@ -10,19 +10,19 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  text: {
+  description: {
     type: String,
     required: true,
   },
-  date: {
+  publishedAt: {
     type: String,
     required: true,
   },
   source: {
-    type: String,
+    type: Object,
     required: true,
   },
-  link: {
+  url: {
     type: String,
     required: true,
     validate: {
@@ -30,7 +30,7 @@ const articleSchema = new mongoose.Schema({
       message: 'Неправильно введен URL!',
     },
   },
-  image: {
+  urlToImage: {
     type: String,
     required: true,
     validate: {
